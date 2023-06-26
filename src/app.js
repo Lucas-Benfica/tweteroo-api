@@ -11,7 +11,7 @@ const users = [];
 
 const tweets = [];
 
-app.post("/sing-up", (req, res) => {
+app.post("/sign-up", (req, res) => {
 
     const { username, avatar } = req.body;
 
@@ -19,7 +19,7 @@ app.post("/sing-up", (req, res) => {
         res.status(400).send('Error');
         return;
     }
-    
+
     const newUser = {username, avatar};
     
     if (!users.find((u) => u.username === username)){
