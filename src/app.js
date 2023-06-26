@@ -57,25 +57,12 @@ app.post("/tweets", (req, res) => {
     res.status(201).send(newTweet)
 })
 
-app.get("/", (req, res) => {
+const array = [1, 2, 3, 4, 5, 6, 7];
 
-    res.send(users);
+app.get("/tweets", (req, res) => {
+    const lastTweets = tweets.slice(-10).reverse()
+
+    res.send(lastTweets)
 });
-
-const nomes = [{ nome: "lucas", sobrenome: "soares" }, { nome: "jéssica", sobrenome: "soares" }]
-
-app.post("/", (req, res) => {
-    //const {nome} = req.body
-    //console.log(req.body)
-    console.log(nomes)
-    const localizar = nomes.find(pessoa => pessoa.nome === "lucas")
-    localizar.nome = "OLALUCAS"
-    console.log("Alterações")
-    console.log(nomes)
-    //ALTEROU O ARRAY ORIGINAL
-
-    res.send(`estamos ssssss aqui`)
-})
-
 
 app.listen(5000, () => console.log(`Running server on port 5000`));
