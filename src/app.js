@@ -16,7 +16,7 @@ app.post("/sign-up", (req, res) => {
     const { username, avatar } = req.body;
 
     if(!username || typeof username !== 'string' || !avatar || typeof avatar !== 'string'){
-        res.status(400).send('Error');
+        res.status(400).send("Todos os campos são obrigatórios!");
         return;
     }
 
@@ -32,10 +32,15 @@ app.post("/sign-up", (req, res) => {
 app.post("/tweets", (req, res) => {
     const {username, tweet} = req.body;
 
+    if(!username || typeof username !== 'string' || !tweet || typeof tweet !== 'string'){
+        res.status(400).send("Todos os campos são obrigatórios!");
+        return;
+    }
+
     const user = users.find((u) => u.username === username);
 
     if(!user){
-        res.send("UNAUTHORIZED");
+        res.status(401).send("UNAUTHORIZED");
         return;
     }
 
@@ -43,12 +48,24 @@ app.post("/tweets", (req, res) => {
 
     tweets.push(newTweet);
 
-    res.send("OK");
+    res.status(201).send("OK");
 })
 
 app.get("/tweets", (req, res) => {
     const lastTweets = tweets.slice(-10).reverse();
-
     res.send(lastTweets);
 });
 
+app.get("/tweets/:username", (req, res) => {
+    const user = req.params.username;
+    if(!users.find((u) => u.username == user)){
+        return res.status(400).send("Usuário não encontrado");
+    }
+    const allTweets = tweets.filter((tweet) => tweet.username == user).reverse();
+
+    if(!allTweets){
+        return res.status(200).send([]);
+    }
+
+    res.status(200).send(allTweets);
+});
