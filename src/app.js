@@ -45,7 +45,6 @@ app.post("/tweets", (req, res) => {
     const user = users.find((u) => u.username === username)
 
     if(!user){
-        console.log("o usuario não existe")
         res.status(401).send("UNAUTHORIZED")
         return
     }
@@ -54,7 +53,7 @@ app.post("/tweets", (req, res) => {
 
     tweets.push(newTweet)
 
-    res.status(201).send(newTweet)
+    res.status(201).send("OK")
 })
 
 const array = [1, 2, 3, 4, 5, 6, 7];
