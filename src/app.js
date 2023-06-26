@@ -28,7 +28,7 @@ app.post("/sing-up", (req, res) => {
 
     users.push(newUser)
 
-    res.status(201).send("OK")
+    res.send("OK")
 })
 
 app.post("/tweets", (req, res) => {
@@ -37,7 +37,7 @@ app.post("/tweets", (req, res) => {
     const user = users.find((u) => u.username === username)
 
     if(!user){
-        res.status(401).send("UNAUTHORIZED")
+        res.send("UNAUTHORIZED")
         return
     }
 
@@ -45,7 +45,7 @@ app.post("/tweets", (req, res) => {
 
     tweets.push(newTweet)
 
-    res.status(201).send("OK")
+    res.send("OK")
 })
 
 app.get("/tweets", (req, res) => {
