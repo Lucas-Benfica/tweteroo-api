@@ -1,38 +1,32 @@
 import express from 'express'
 import cors from 'cors'
 
-const app = express()
-app.use(cors())
-app.use(express.json())
+const app = express();
+app.use(cors());
+app.use(express.json());
+const PORT = 5000;
+app.listen(PORT, () => console.log(`Running server on port ${PORT}`));
 
-const users = []
-/* 
-{
-    username: 'bobesponja', 
-    avatar: "https://cdn.shopify.com/s/files/1/0150/0643/3380/files/Screen_Shot_2019-07-01_at_11.35.42_AM_370x230@2x.png" 
-}
-*/
-const tweets = []
-/* 
-{
-    username: "bobesponja",
-    avatar: "avatar"
-    tweet: "Eu amo hambúrguer de siri!"
-}
-*/
+const users = [];
+
+const tweets = [];
 
 app.post("/sing-up", (req, res) => {
-    const {username, avatar} = req.body;
 
-    if(users.find((user) => user.username === username)){
-        
-    };
+    const { username, avatar } = req.body;
 
+    if(!username || typeof username !== 'string' || !avatar || typeof avatar !== 'string'){
+        res.status(400).send('Error');
+        return;
+    }
+    
     const newUser = {username, avatar};
+    
+    if (!users.find((u) => u.username === username)){
+        users.push(newUser);
+    }
 
-    users.push(req.bory);
-
-    res.status(201).send('OK');
+    res.status(201).send('Ok');  
 })
 
 app.post("/tweets", (req, res) => {
@@ -58,4 +52,3 @@ app.get("/tweets", (req, res) => {
     res.send(lastTweets);
 });
 
-app.listen(5000, () => console.log(`Running server on port 5000`));
