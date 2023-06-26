@@ -22,36 +22,40 @@ const tweets = []
 */
 
 app.post("/sing-up", (req, res) => {
-    const {username, avatar} = req.body
+    const {username, avatar} = req.body;
 
-    const newUser = {username, avatar}
+    if(users.find((user) => user.username === username)){
+        
+    };
 
-    users.push(newUser)
+    const newUser = {username, avatar};
 
-    res.send("OK")
+    users.push(req.bory);
+
+    res.status(201).send('OK');
 })
 
 app.post("/tweets", (req, res) => {
-    const {username, tweet} = req.body
+    const {username, tweet} = req.body;
 
-    const user = users.find((u) => u.username === username)
+    const user = users.find((u) => u.username === username);
 
     if(!user){
-        res.send("UNAUTHORIZED")
-        return
+        res.send("UNAUTHORIZED");
+        return;
     }
 
-    const newTweet = {username, avatar: user.avatar , tweet}
+    const newTweet = {username, avatar: user.avatar , tweet};
 
-    tweets.push(newTweet)
+    tweets.push(newTweet);
 
-    res.send("OK")
+    res.send("OK");
 })
 
 app.get("/tweets", (req, res) => {
-    const lastTweets = tweets.slice(-10).reverse()
+    const lastTweets = tweets.slice(-10).reverse();
 
-    res.send(lastTweets)
+    res.send(lastTweets);
 });
 
 app.listen(5000, () => console.log(`Running server on port 5000`));
